@@ -26,6 +26,12 @@ def identify_plant(image_path, organ="auto"):
     if not os.path.exists(image_path):
         raise FileNotFoundError(f"Image not found at {image_path}")
 
+    # Check file format
+    valid_extensions = {'.jpg', '.jpeg', '.png'}
+    file_ext = os.path.splitext(image_path)[1].lower()
+    if file_ext not in valid_extensions:
+        raise ValueError(f"Invalid file format: {file_ext}. Expected jpg or png")
+
     # Check file size (50 MB limit)
     file_size = os.path.getsize(image_path)
     max_size = 52428800  # 50 MB in bytes
