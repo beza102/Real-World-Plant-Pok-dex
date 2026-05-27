@@ -2,8 +2,8 @@
 Service module for interacting with the PlantNet API.
 Handles image validation and plant identification requests.
 """
-import requests
 import os
+import requests
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -20,7 +20,7 @@ def identify_plant(image_path, organ="auto"):
         organ (str): Plant organ type - 'leaf', 'flower', 'fruit', 'bark', or 'auto'
     
     Returns:
-        dict: PlantNet API response with plant identification results
+        str: Scientific name of the identified plant species.
     """
     # Check if file exists
     if not os.path.exists(image_path):
@@ -53,7 +53,8 @@ def identify_plant(image_path, organ="auto"):
         try:
             response = requests.post(url, files=files, data=data, timeout=10)
             response.raise_for_status()  # Raise error for bad status codes
-            return response.json()
+            json_response = response.json()
+            return json_response["results"][0]["species"]["scientificNameWithoutAuthor"]
 
         except requests.exceptions.RequestException as e:
             print(f"Error calling PlantNet API: {e}")
