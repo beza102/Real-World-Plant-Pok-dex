@@ -6,7 +6,7 @@ import os
 import requests
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(os.path.join(os.path.dirname(__file__), "..", ".env"))
 
 PLANTNET_API_KEY = os.getenv('PLANTNET_API_KEY')
 PLANTNET_API_URL = "https://my-api.plantnet.org/v2/identify/all"

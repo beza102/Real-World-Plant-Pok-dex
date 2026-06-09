@@ -6,7 +6,7 @@ import os
 from groq import Groq
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(os.path.join(os.path.dirname(__file__), "..", ".env"))
 
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 GROQ_MODEL = "llama-3.1-8b-instant"
@@ -46,6 +46,11 @@ def generate_pokedex_entry(scientific_name: str) -> dict:
         raise ValueError("scientific_name must be a non-empty string.")
 
     scientific_name = scientific_name.strip()
+
+    if not GROQ_API_KEY:
+        raise ValueError(
+            "GROQ_API_KEY is not set. Add it to backend/.env (e.g. GROQ_API_KEY=gsk_...) and save the file."
+        )
 
     user_prompt = (
         f"Write a Pokédex entry for the real plant species: {scientific_name}. "
