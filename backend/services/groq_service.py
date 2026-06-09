@@ -73,3 +73,10 @@ def generate_pokedex_entry(scientific_name: str) -> dict:
     except Exception as e:
         print(f"Error calling Groq API: {e}")
         raise
+
+if __name__ == "__main__":
+    test_name = "Taraxacum officinale"   # common dandelion
+    result = generate_pokedex_entry(test_name)
+    print(f"Plant:  {result['scientific_name']}")
+    print(f"Model:  {result['model']}")
+    print(f"\n{result['entry']}")
