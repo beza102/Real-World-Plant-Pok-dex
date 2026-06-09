@@ -61,7 +61,7 @@ def identify_plant(image_path, organ="auto"):
             raise
 
 
-# Example usage:
 if __name__ == "__main__":
-    result = identify_plant("backend/data/photos/plant.jpg", organ="leaf")
-    print(result)
+    image_path = "data/photos/guzmania_conifera.jpg"
+    scientific_name = identify_plant(image_path, organ="flower")
+    print(f"Identified: {scientific_name}")
