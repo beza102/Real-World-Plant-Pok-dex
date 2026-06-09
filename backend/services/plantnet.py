@@ -6,7 +6,7 @@ import os
 import requests
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(os.path.join(os.path.dirname(__file__), "..", ".env"))
 
 PLANTNET_API_KEY = os.getenv('PLANTNET_API_KEY')
 PLANTNET_API_URL = "https://my-api.plantnet.org/v2/identify/all"
@@ -61,7 +61,7 @@ def identify_plant(image_path, organ="auto"):
             raise
 
 
-# Example usage:
 if __name__ == "__main__":
-    result = identify_plant("backend/data/photos/plant.jpg", organ="leaf")
-    print(result)
+    image_path = "data/photos/guzmania_conifera.jpg"
+    scientific_name = identify_plant(image_path, organ="flower")
+    print(f"Identified: {scientific_name}")
