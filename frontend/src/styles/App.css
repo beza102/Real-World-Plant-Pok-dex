@@ -15,7 +15,7 @@
 .app-header h1 {
   font-size: 2rem;
   font-weight: 700;
-  color:rgb(39, 76, 58);
+  color:rgb(64, 46, 31);
   letter-spacing: -0.5px;
 }
 
@@ -63,6 +63,6 @@
 
 .status-error button:hover,
 .reset-btn:hover {
-  background-color: rgb(24, 22, 21);
+  background-color: rgb(64, 46, 31);
   color: white;
 }

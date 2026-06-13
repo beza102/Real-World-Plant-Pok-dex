@@ -1,0 +1,45 @@
+.voice-player {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.voice-player__btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.6rem 1.5rem;
+  border: 1.5px solid rgb(140, 76, 39);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: rgb(64, 46, 31);
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background 0.15s, color 0.15s;
+}
+
+.voice-player__btn:hover {
+  background-color: rgb(140, 76, 39);
+  color: white;
+}
+
+.voice-player__btn--stop {
+  background-color: rgb(174, 0, 0);
+  color: white;
+}
+
+.voice-player__progress-track {
+  width: 100%;
+  height: 4px;
+  background: var(--color-border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.voice-player__progress-bar {
+  height: 100%;
+  background: var(--color-red);
+  border-radius: 999px;
+  transition: width 0.1s linear;
+}
