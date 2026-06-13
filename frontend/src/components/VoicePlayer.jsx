@@ -9,7 +9,7 @@ export default function VoicePlayer({ text }) {
 
   return (
     <div className="voice-placeholder">
-      <button onClick={speak}>Read entry aloud (placeholder)</button>
+      <button onClick={speak}>Read entry aloud</button>
     </div>
   )
 }
