@@ -1,0 +1,57 @@
+.upload-zone {
+  background: var(--color-card-bg);
+  border: 2px dashed var(--color-red);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+  outline: none;
+}
+
+.upload-zone:hover,
+.upload-zone:focus-visible {
+  background: #fff5f5;
+}
+
+.upload-zone--dragging {
+  background: #fff0f0;
+  border-color: var(--color-red-dark);
+}
+
+.upload-zone--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.upload-zone__icon {
+  width: 56px;
+  height: 56px;
+  background: #fff0f0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  color: var(--color-red);
+}
+
+.upload-zone__title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0 0 4px;
+}
+
+.upload-zone__subtitle {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.upload-zone__hint {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  margin: 0.75rem 0 0;
+  opacity: 0.7;
+}

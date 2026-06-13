@@ -3,9 +3,7 @@ import ImageUpload from './components/ImageUpload'
 import PokedexCard from './components/PokedexCard'
 import VoicePlayer from './components/VoicePlayer'
 import { mockIdentifyPlant } from './services/mockData'
-// import { identifyPlant } from './services/api'  ← swap in when backend is ready
-
-import './App.css'
+import './styles/App.css'
 
 export default function App() {
   const [status, setStatus] = useState('idle')
