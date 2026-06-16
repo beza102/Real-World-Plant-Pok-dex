@@ -13,8 +13,8 @@ A web app where you take a photo of any plant and get a real Pokédex-style entr
 
 Create `backend/.env` with both API keys:
 
-PLANTNET_API_KEY=your_plantnet_key_here
-GEMINI_API_KEY=your_gemini_key_here
+```PLANTNET_API_KEY=your_plantnet_key_here
+ GEMINI_API_KEY=your_gemini_key_here```
 
 Start the backend from `backend/`:
 
@@ -114,3 +114,9 @@ Built with **FastAPI**. Connects the frontend to PlantNet and Gemini, handles fi
 - `POST /identify` — accepts an image, returns the plant name and Pokédex entry
 
 ---
+
+## Notes
+
+- PlantNet is free for up to 500 identifications per day
+- If a non-plant photo is uploaded, the app will show a friendly error message
+- AI-generated descriptions may not always be 100% accurate
