@@ -6,7 +6,7 @@ import os
 import requests
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(os.path.join(os.path.dirname(__file__), "..", ".env"))
 
 PLANTNET_API_KEY = os.getenv('PLANTNET_API_KEY')
 PLANTNET_API_URL = "https://my-api.plantnet.org/v2/identify/all"
@@ -51,17 +51,22 @@ def identify_plant(image_path, organ="auto"):
         }
 
         try:
-            response = requests.post(url, files=files, data=data, timeout=10)
-            response.raise_for_status()  # Raise error for bad status codes
+            response = requests.post(url, files=files, data=data, timeout=30)
+            response.raise_for_status()
             json_response = response.json()
             return json_response["results"][0]["species"]["scientificNameWithoutAuthor"]
 
-        except requests.exceptions.RequestException as e:
+        except requests.exceptions.Timeout:
+            raise ValueError("PlantNet took too long to respond. Please try again.")
+        except requests.exceptions.HTTPError as e:
+            if e.response.status_code == 404:
+                raise ValueError(
+                    "That doesn't look like a plant. Try a photo of a plant!"
+                )
             print(f"Error calling PlantNet API: {e}")
             raise
 
-
-# Example usage:
 if __name__ == "__main__":
-    result = identify_plant("backend/data/photos/plant.jpg", organ="leaf")
-    print(result)
+    image_path = "data/photos/guzmania_conifera.jpg"
+    scientific_name = identify_plant(image_path, organ="flower")
+    print(f"Identified: {scientific_name}")
