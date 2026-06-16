@@ -7,6 +7,7 @@ import os
 import uuid
 import tempfile
 
+import requests as http_requests
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -34,11 +35,6 @@ async def identify(file: UploadFile = File(...)):
     """
     Accepts an uploaded image, runs it through PlantNet to get the plant name,
     then passes that name to Gemini to generate a Pokédex entry.
-
-    Returns:
-        scientific_name: what PlantNet identified
-        entry: the Pokédex-style description from Gemini
-        model: which Gemini model was used
     """
 
     # 1. Validate file type
@@ -71,7 +67,10 @@ async def identify(file: UploadFile = File(...)):
         except FileNotFoundError:
             raise HTTPException(status_code=500, detail="Temp file not found — this is a server error.")
         except ValueError as e:
-            raise HTTPException(status_code=400, detail=str(e))
+            # Covers "not a plant" and other validation errors
+            raise HTTPException(status_code=422, detail=str(e))
+        except http_requests.exceptions.Timeout:
+            raise HTTPException(status_code=504, detail="PlantNet took too long to respond. Please try again.")
         except Exception as e:
             raise HTTPException(
                 status_code=502,

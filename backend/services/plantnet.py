@@ -51,15 +51,20 @@ def identify_plant(image_path, organ="auto"):
         }
 
         try:
-            response = requests.post(url, files=files, data=data, timeout=10)
-            response.raise_for_status()  # Raise error for bad status codes
+            response = requests.post(url, files=files, data=data, timeout=30)
+            response.raise_for_status()
             json_response = response.json()
             return json_response["results"][0]["species"]["scientificNameWithoutAuthor"]
 
-        except requests.exceptions.RequestException as e:
+        except requests.exceptions.Timeout:
+            raise ValueError("PlantNet took too long to respond. Please try again.")
+        except requests.exceptions.HTTPError as e:
+            if e.response.status_code == 404:
+                raise ValueError(
+                    "That doesn't look like a plant. Try a photo of a plant!"
+                )
             print(f"Error calling PlantNet API: {e}")
             raise
-
 
 if __name__ == "__main__":
     image_path = "data/photos/guzmania_conifera.jpg"
