@@ -2,7 +2,6 @@ import { useState } from 'react'
 import ImageUpload from './components/ImageUpload'
 import PokedexCard from './components/PokedexCard'
 import VoicePlayer from './components/VoicePlayer'
-import { mockIdentifyPlant } from './services/mockData'
 import './styles/App.css'
 
 export default function App() {
@@ -18,14 +17,23 @@ export default function App() {
     setErrorMsg('')
 
     try {
-      const data = await mockIdentifyPlant(file)
-      setResult(data)
-      setStatus('result')
-    } catch (err) {
-      console.error(err)
-      setErrorMsg(err.message || 'Something went wrong. Please try again.')
-      setStatus('error')
+      const formData = new FormData()
+      formData.append('file', file)
+      const res = await fetch('http://localhost:8000/identify', { method: 'POST', body: formData })
+      
+   if (!res.ok) {
+      const err = await res.json()
+      throw new Error(err.detail || 'Something went wrong.')
     }
+
+    const data = await res.json()
+    setResult(data)        
+    setStatus('result')    
+  } catch (err) {
+    console.error(err)
+    setErrorMsg(err.message || 'Something went wrong. Please try again.')
+    setStatus('error')
+  }
   }
 
   function handleReset() {
